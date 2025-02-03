@@ -1,7 +1,6 @@
 -- Réinitialisation et création de la base de données
 DROP DATABASE IF EXISTS `guess_the_flag`;
 CREATE DATABASE `guess_the_flag`;
-
 USE `guess_the_flag`;
 
 -- Création des tables
