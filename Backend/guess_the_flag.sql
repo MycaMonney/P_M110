@@ -5,20 +5,19 @@ USE `guess_the_flag`;
 
 -- Création des tables
 CREATE TABLE regions (
-    `id` INT PRIMARY KEY AUTO_INCREMENT,
-    `name` VARCHAR(50) NOT NULL
+	`id` INT PRIMARY KEY AUTO_INCREMENT,
+	`name` VARCHAR(50) NOT NULL,
+    ON DELETE CASCADE,
+    ON UPDATE CASCADE
 );
 
 CREATE TABLE users (
-    `id` INT PRIMARY KEY AUTO_INCREMENT,
-    `username` VARCHAR(50) NOT NULL,
-    `password` CHAR(64) NOT NULL,
-    `score` INT NOT NULL,
-    `idRegion` INT NOT NULL,
-    FOREIGN KEY (`idRegion`)
-    REFERENCES regions(`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION
+	`id` INT PRIMARY KEY AUTO_INCREMENT,
+	`username` VARCHAR(50) NOT NULL,
+	`password` CHAR(64) NOT NULL,
+	`score` INT NOT NULL,
+	`idRegion` INT NOT NULL,
+	FOREIGN KEY (`idRegion`) REFERENCES regions(`id`)
 );
 
 -- Ajout des régions
