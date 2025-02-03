@@ -1,16 +1,16 @@
 body {
-    background-color: #709CA7;
+    background-color: white;
     display: flex;
     align-items: center;
     flex-direction: column;
     gap: 20px;
     height: 100vh;
-    margin: 0;
+    margin: 10px;
     font-family: Arial, sans-serif;
 }
 
 #form {
-    background-color: #344D59;
+    background-color: #709CA7;
     padding: 20px;
     border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -25,7 +25,8 @@ form {
 
 label {
     font-weight: bold;
-    color: #B8CBD0;
+    color: #344D59;
+    font-size: 25px;
 }
 
 input[type="text"],
@@ -49,7 +50,7 @@ select:focus {
 }
 
 input[type="submit"] {
-    background-color: #137C8B;
+    background-color: #344D59;
     color: white;
     padding: 10px;
     border: none;
@@ -65,3 +66,16 @@ input[type="submit"]:hover {
 img{
     height: 200px;
 }
+
+@media screen and (orientation: landscape) {
+
+@media (max-height: 450px) {
+    img{
+        display: none;
+    }
+    body{
+        justify-content: center;
+        align-items: center;
+    }
+  }
+  }
