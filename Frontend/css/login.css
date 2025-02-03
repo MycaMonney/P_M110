@@ -1,8 +1,9 @@
 body {
     background-color: #709CA7;
     display: flex;
-    justify-content: center;
     align-items: center;
+    flex-direction: column;
+    gap: 20px;
     height: 100vh;
     margin: 0;
     font-family: Arial, sans-serif;
@@ -59,4 +60,8 @@ input[type="submit"] {
 
 input[type="submit"]:hover {
     background-color: #137C8B;
+}
+
+img{
+    height: 200px;
 }
