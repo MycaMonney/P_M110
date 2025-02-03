@@ -1,5 +1,5 @@
 body {
-    background-color: #137C8B;
+    background-color: #709CA7;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -34,8 +34,11 @@ select {
     border: 1px solid #137C8B;
     border-radius: 5px;
     background-color: #fff;
-    outline: none;
     transition: border-color 0.3s;
+}
+
+input[type="text"]{
+    width: 278px;
 }
 
 input[type="text"]:focus,
