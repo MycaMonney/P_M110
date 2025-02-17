@@ -1,0 +1,35 @@
+# Fichiers et dossiers générés par Composer
+/vendor/
+/composer.lock
+
+# Cache et logs
+/cache/
+/logs/
+/tmp/
+
+# Fichiers sensibles et spécifiques à l'environnement
+.env
+.env.local
+.env.*.local
+/config/*.local.php
+/config/*.env.php
+
+# Fichiers et dossiers de l'IDE
+.idea/
+.vscode/
+
+# Système et autres fichiers inutiles
+.DS_Store
+Thumbs.db
+
+# Sessions et téléchargements
+/sessions/
+/uploads/
+
+# Cache de PHPUnit
+.phpunit.result.cache
+
+# Node modules si tu utilises du JS/CSS via npm
+/node_modules/
+/package-lock.json
+/yarn.lock
