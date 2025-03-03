@@ -63,7 +63,7 @@ for ($i = $slashCount; $i > 1; $i--) {
 </style>
 <h2>Quel est le drapeau de ce pays ?</h2>
 <h2 id="nomPays">Nom du pays</h2>
-<h3 style="text-align: center;">Score: <span id="scoreResult"></span></h3>
+<h3 style="text-align: center;" id="scorecont">Score: <span id="scoreResult"></span></h3>
 
 <div id="drapeaux">
     <div id="drapeaux-haut" class="row"></div>
@@ -104,14 +104,14 @@ for ($i = $slashCount; $i > 1; $i--) {
                 nom: element.name.common,
                 drapeau: element.flags.svg
             }));
-            afficherDrapeauxUniques(4);
+            afficherDrapeauxUniques((score > 50) ? score / 10 : 4); // ajout de difficulé après 5 drapeaux
         } catch (error) {
             console.error("Erreur :", error);
         }
     }
 
     function afficherDrapeauxUniques(nbr) {
-        drapeauxHaut.innerHTML = "";
+        drapeauxHaut.innerHTML = ""; 
         drapeauxBas.innerHTML = "";
         paysChoisis = [];
         let copiePays = [...paysListe];
@@ -137,22 +137,33 @@ for ($i = $slashCount; $i > 1; $i--) {
         nomPaysElement.textContent = paysChoisis[randomPays].nom;
     }
 
+    let audioSuccess = new Audio('<?= $addonPath ?>assets/sound/success.mp3');
+    let audioError = new Audio('<?= $addonPath ?>assets/sound/error.mp3');
+    audioSuccess.load();
+    audioError.load();
+
     function verifierReponse(nomClique) {
         let nomCorrect = nomPaysElement.textContent;
         if (nomClique === nomCorrect) {
-            alert("Bonne réponse !");
+            audioSuccess.play();
             score += 10;
             scoreResult.textContent = score;
             recuperer()
         } else {
-            alert("Mauvaise réponse, essaie encore !");
+            audioError.play();
             drapeaux.style.display = "none";
             AffichageResultatScore.style.visibility = "visible"
             ResultatScore.textContent = score;
             nomPaysElement.style.visibility = "hidden";
+            btn.style.visibility = "visible";
+            btn.addEventListener('click', () => {
+                window.location.reload();
+            });
+            document.getElementById('scorecont').style.visibility = "hidden";
         }
         fetch(`http://flaglog/saveScore/${score}`);
-        console.log('save');
+
+        
     }
     recuperer(); // Charger les données au début
 </script>

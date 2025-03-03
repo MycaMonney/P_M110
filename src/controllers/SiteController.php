@@ -100,14 +100,20 @@ class SiteController
         $newScore = (int)$args['value'];
         $userArray = ARUsers::readById($_SESSION['idUser']);
         if ($newScore > $userArray['score']) {
-            $userObject = new ARUsers();
-            $userObject->id = $userArray['id'];
-            $userObject->username = $userArray['username'];
-            $userObject->password = $userArray['password'];
-            $userObject->score = $newScore;
-            $userObject->isAdmin = $userArray['isAdmin'];
-            $userObject->idRegion = $userArray['idRegion'];
-            $userObject->update();
+            // Le score a enregistrer est plus grand
+            if ($userArray['score'] + 10 == $newScore) {
+                $userObject = new ARUsers();
+                $userObject->id = $userArray['id'];
+                $userObject->username = $userArray['username'];
+                $userObject->password = $userArray['password'];
+                $userObject->score = $newScore;
+                $userObject->isAdmin = $userArray['isAdmin'];
+                $userObject->idRegion = $userArray['idRegion'];
+                $userObject->update();
+                Log::create($_SESSION['idUser'] . " a augmenté son score");
+            } else {
+                Log::create('Le score pour le user ' . $_SESSION['idUser'] . " devais monter anormalement", 'error');
+            }
         }
         return true;
     }
