@@ -1,4 +1,11 @@
-<link rel="stylesheet" href="styles/index.css">
+<?php
+$addonPath = '';
+$slashCount = substr_count($_SERVER['REQUEST_URI'], '/');
+for ($i = $slashCount; $i > 1; $i--) {
+    $addonPath .= '../';
+}
+?>
+<link rel="stylesheet" href="<?= $addonPath ?>styles/index.css">
 <style>
     /* Style pour organiser les drapeaux */
     #drapeaux {
@@ -25,7 +32,7 @@
         transform: rotate(0deg);
         transition: all 0.2s;
     }
-    
+
     img:hover {
         border: 2px solid #3F51B5;
         transform: rotate(-3deg);

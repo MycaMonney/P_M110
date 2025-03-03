@@ -1,4 +1,11 @@
-<link rel="stylesheet" href="styles/index.css">
+<?php
+$addonPath = '';
+$slashCount = substr_count($_SERVER['REQUEST_URI'], '/');
+for ($i = $slashCount; $i > 1; $i--) {
+    $addonPath .= '../';
+}
+?>
+<link rel="stylesheet" href="<?= $addonPath ?>styles/index.css">
 <h2>Scoreboard</h2>
 <section>
     <table>

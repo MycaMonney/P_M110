@@ -1,5 +1,12 @@
-<link rel="stylesheet" href="styles/login.css">
-<img id="logo" src="assets/img/flagLogo.png" alt="">
+<?php
+$addonPath = '';
+$slashCount = substr_count($_SERVER['REQUEST_URI'], '/');
+for ($i = $slashCount; $i > 1; $i--) {
+    $addonPath .= '../';
+}
+?>
+<link rel="stylesheet" href="<?= $addonPath ?>styles/login.css">
+<img id="logo" src="<?= $addonPath ?>assets/img/flagLogo.png" alt="">
 <div id="form">
     <form action="/login" method="post">
         <label for="username">Nom d'utilisateur</label>

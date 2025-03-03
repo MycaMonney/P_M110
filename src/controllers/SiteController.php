@@ -20,7 +20,7 @@ class SiteController
         $dataLayout = ['title' => 'Home'];
         $phpView = new PhpRenderer(__DIR__ . '/../views', $dataLayout);
         $phpView->setLayout("_template.php");
-        return $phpView->render($response, 'home.html', [
+        return $phpView->render($response, 'home.php', [
             'drawHeader' => true
         ]);
     }
@@ -31,7 +31,7 @@ class SiteController
         $dataLayout = ['title' => 'Login'];
         $phpView = new PhpRenderer(__DIR__ . '/../views', $dataLayout);
         $phpView->setLayout("_template.php");
-        return $phpView->render($response, 'login.html');
+        return $phpView->render($response, 'login.php');
     }
 
     public function register(Request $request, Response $response): Response
@@ -89,7 +89,7 @@ class SiteController
         $dataLayout = ['title' => 'Account'];
         $phpView = new PhpRenderer(__DIR__ . '/../views', $dataLayout);
         $phpView->setLayout("_template.php");
-        return $phpView->render($response, 'game.html', [
+        return $phpView->render($response, 'game.php', [
             'drawHeader' => true,
         ]);
     }
