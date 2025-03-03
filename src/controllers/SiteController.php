@@ -93,4 +93,22 @@ class SiteController
             'drawHeader' => true,
         ]);
     }
+
+    public function saveScore(Request $request, Response $response, array $args): bool
+    {
+        // Récupère le score
+        $newScore = (int)$args['value'];
+        $userArray = ARUsers::readById($_SESSION['idUser']);
+        if ($newScore > $userArray['score']) {
+            $userObject = new ARUsers();
+            $userObject->id = $userArray['id'];
+            $userObject->username = $userArray['username'];
+            $userObject->password = $userArray['password'];
+            $userObject->score = $newScore;
+            $userObject->isAdmin = $userArray['isAdmin'];
+            $userObject->idRegion = $userArray['idRegion'];
+            $userObject->update();
+        }
+        return true;
+    }
 }

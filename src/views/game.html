@@ -28,7 +28,7 @@
     
     img:hover {
         border: 2px solid #3F51B5;
-        transform: rotate(-4deg);
+        transform: rotate(-3deg);
         transition: all 0.2s;
     }
 
@@ -93,13 +93,10 @@
                 throw new Error("Erreur lors de la récupération des données");
             }
             const pays = await reponse.json();
-
-
             paysListe = pays.map(element => ({
                 nom: element.name.common,
                 drapeau: element.flags.svg
             }));
-
             afficherDrapeauxUniques(4);
         } catch (error) {
             console.error("Erreur :", error);
@@ -110,7 +107,6 @@
         drapeauxHaut.innerHTML = "";
         drapeauxBas.innerHTML = "";
         paysChoisis = [];
-
         let copiePays = [...paysListe];
 
         for (let i = 0; i < nbr; i++) {
@@ -122,19 +118,14 @@
             drapeau.alt = paysSelectionne.nom;
             drapeau.addEventListener("click", () => verifierReponse(paysSelectionne.nom));
 
-
             if (i < 2) {
                 drapeauxHaut.appendChild(drapeau);
             } else {
                 drapeauxBas.appendChild(drapeau);
             }
-
             paysChoisis.push(paysSelectionne);
             copiePays.splice(random, 1);
-
         }
-
-
         let randomPays = Math.floor(Math.random() * paysChoisis.length);
         nomPaysElement.textContent = paysChoisis[randomPays].nom;
     }
@@ -151,11 +142,10 @@
             drapeaux.style.display = "none";
             AffichageResultatScore.style.visibility = "visible"
             ResultatScore.textContent = score;
-            nomPaysElement.style.visibility = "hidden"
+            nomPaysElement.style.visibility = "hidden";
         }
-
+        fetch(`http://flaglog/saveScore/${score}`);
+        console.log('save');
     }
-
-
     recuperer(); // Charger les données au début
 </script>

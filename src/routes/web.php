@@ -6,9 +6,15 @@ use Controllers\SiteController;
 // Routage du site
 session_start();
 $app->get('/', [SiteController::class, 'home']);
-$app->get('/game[/]', [SiteController::class, 'playQuiz']);
 $app->get('/scoreboard[/]', [SiteController::class, 'scoreboard']);
 $app->get('/account[/]', [SiteController::class, 'account']);
+
+
+// JEU
+$app->get('/game[/]', [SiteController::class, 'playQuiz']);
+
+// Sauvegarde du score
+$app->get('/saveScore/{value}', [SiteController::class, 'saveScore']);
 
 
 // ACCES AU COMPTE
