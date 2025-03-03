@@ -20,11 +20,12 @@ for ($i = $slashCount; $i > 1; $i--) {
         justify-content: center;
         gap: 20px;
         margin-bottom: 20px;
+        align-items: center;
     }
 
     div img {
-        width: 150px;
-        height: auto;
+        width: 13%;
+        height: fit-content;
         cursor: pointer;
         border: 2px solid transparent;
         transition: border 0.3s;
@@ -104,14 +105,19 @@ for ($i = $slashCount; $i > 1; $i--) {
                 nom: element.name.common,
                 drapeau: element.flags.svg
             }));
-            afficherDrapeauxUniques((score > 50) ? score / 10 : 4); // ajout de difficulé après 5 drapeaux
+            nbrDrapeauCalcule = Math.floor(4 + Math.log((score / 10) + 1) / Math.log(3));
+            afficherDrapeauxUniques(nbrDrapeauCalcule);
         } catch (error) {
             console.error("Erreur :", error);
         }
     }
 
+    let nbrDrapeau = 4;
+    let compteurTours = 0;
+    const toursAvantAugmentation = 5;
+
     function afficherDrapeauxUniques(nbr) {
-        drapeauxHaut.innerHTML = ""; 
+        drapeauxHaut.innerHTML = "";
         drapeauxBas.innerHTML = "";
         paysChoisis = [];
         let copiePays = [...paysListe];
@@ -125,7 +131,7 @@ for ($i = $slashCount; $i > 1; $i--) {
             drapeau.alt = paysSelectionne.nom;
             drapeau.addEventListener("click", () => verifierReponse(paysSelectionne.nom));
 
-            if (i < 2) {
+            if (Math.floor(i) < Math.ceil(nbr / 2)) {
                 drapeauxHaut.appendChild(drapeau);
             } else {
                 drapeauxBas.appendChild(drapeau);
@@ -143,8 +149,10 @@ for ($i = $slashCount; $i > 1; $i--) {
     audioError.load();
 
     function verifierReponse(nomClique) {
+        compteurTours++;
         let nomCorrect = nomPaysElement.textContent;
         if (nomClique === nomCorrect) {
+            audioSuccess.currentTime = 0;
             audioSuccess.play();
             score += 10;
             scoreResult.textContent = score;
@@ -162,8 +170,6 @@ for ($i = $slashCount; $i > 1; $i--) {
             document.getElementById('scorecont').style.visibility = "hidden";
         }
         fetch(`http://flaglog/saveScore/${score}`);
-
-        
     }
     recuperer(); // Charger les données au début
 </script>

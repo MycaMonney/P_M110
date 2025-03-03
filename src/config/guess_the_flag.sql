@@ -30,6 +30,6 @@ INSERT INTO regions (name) VALUES
 
 -- Ajout des utilisateurs avec des mots de passe hachés
 INSERT INTO users (`username`, `password`, `score`, `isAdmin`, `idRegion`) VALUES
-('alice', '$2y$10$sTUmzLJrCVAjU/aNDn4QsOZIfVfHWByI0lO0G5TAAUfdyP2n5EVT2', 256, 0, 1), -- mdp : password123
-('bob', '$2y$10$rruuMGHZoDbIGBh7b4bcquDKjBakEOpJdWPHlwJeBUAyeyXKG/JgK', 1500, 0, 2), -- mdp : securepass
+('alice', '$2y$10$sTUmzLJrCVAjU/aNDn4QsOZIfVfHWByI0lO0G5TAAUfdyP2n5EVT2', 80, 0, 1), -- mdp : password123
+('bob', '$2y$10$rruuMGHZoDbIGBh7b4bcquDKjBakEOpJdWPHlwJeBUAyeyXKG/JgK', 30, 0, 2), -- mdp : securepass
 ('Etienne', '$2y$10$D4Ji5l/XGzgJ7lAIGgzJ/OMTakLagaijNoZZpil5nYW.l.1Nu/g02', 0, 1, 1); -- mdp : Super
