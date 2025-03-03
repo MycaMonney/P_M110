@@ -3,3 +3,5 @@
 [2025-02-17T14:39:31.646453+00:00] mon_log.INFO: L'utilisateur 1 s'est déconnecté. [] []
 [2025-02-17T14:39:44.132610+00:00] mon_log.INFO: L'utilisateur 3 s'est connecté. [] []
 [2025-02-17T14:42:59.434046+00:00] flaglog.INFO: L'utilisateur 3 s'est déconnecté. [] []
+[2025-02-21T14:35:36.508225+00:00] flaglog.INFO: L'utilisateur 1 s'est connecté. [] []
+[2025-03-03T11:50:19.375553+00:00] flaglog.INFO: L'utilisateur 1 s'est connecté. [] []

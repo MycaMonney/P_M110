@@ -1,0 +1,161 @@
+<link rel="stylesheet" href="styles/index.css">
+<style>
+    /* Style pour organiser les drapeaux */
+    #drapeaux {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 20px;
+    }
+
+    .row {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-bottom: 20px;
+    }
+
+    div img {
+        width: 150px;
+        height: auto;
+        cursor: pointer;
+        border: 2px solid transparent;
+        transition: border 0.3s;
+        border-radius: 5px;
+        transform: rotate(0deg);
+        transition: all 0.2s;
+    }
+    
+    img:hover {
+        border: 2px solid #3F51B5;
+        transform: rotate(-4deg);
+        transition: all 0.2s;
+    }
+
+    .button-with-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #0f988e;
+        font-family: "Istok Web", sans-serif;
+        padding: 12px;
+        width: 120px;
+        height: 40px;
+        font-size: 14px;
+        text-transform: uppercase;
+        background: #15ccbe;
+        color: white;
+        cursor: pointer;
+        transition: 150ms all ease-in-out;
+        margin: auto;
+    }
+
+    .button-with-icon:hover {
+        background: #0f988e;
+    }
+</style>
+<h2>Quel est le drapeau de ce pays ?</h2>
+<h2 id="nomPays">Nom du pays</h2>
+<h3 style="text-align: center;">Score: <span id="scoreResult"></span></h3>
+
+<div id="drapeaux">
+    <div id="drapeaux-haut" class="row"></div>
+    <div id="drapeaux-bas" class="row"></div>
+</div>
+
+<p id="afficherResultat" style="text-align: center; font-size: 60px; ">Resultat score: <span style="font-size: 60px;"
+        id="resultatScore"></span>
+</p>
+
+<button id="btnPlay" onclick="recuperer()" class="button-with-icon">Rejouer</button>
+
+<script>
+    const URLAPI = "https://restcountries.com/v3.1/all";
+    let paysListe = [];
+    let paysChoisis = [];
+    let btn = document.getElementById("btnPlay");
+    let scoreResult = document.getElementById("scoreResult");
+    btn.style.visibility = "hidden";
+    let score = 0;
+    let nomPaysElement = document.getElementById("nomPays");
+    let drapeaux = document.getElementById("drapeaux");
+    let drapeauxHaut = document.getElementById("drapeaux-haut");
+    let drapeauxBas = document.getElementById("drapeaux-bas");
+    scoreResult.textContent = score;
+    let ResultatScore = document.getElementById("resultatScore")
+    let AffichageResultatScore = document.getElementById("afficherResultat");
+    AffichageResultatScore.style.visibility = "hidden"
+
+    async function recuperer() {
+        try {
+            const reponse = await fetch(URLAPI);
+            if (!reponse.ok) {
+                throw new Error("Erreur lors de la récupération des données");
+            }
+            const pays = await reponse.json();
+
+
+            paysListe = pays.map(element => ({
+                nom: element.name.common,
+                drapeau: element.flags.svg
+            }));
+
+            afficherDrapeauxUniques(4);
+        } catch (error) {
+            console.error("Erreur :", error);
+        }
+    }
+
+    function afficherDrapeauxUniques(nbr) {
+        drapeauxHaut.innerHTML = "";
+        drapeauxBas.innerHTML = "";
+        paysChoisis = [];
+
+        let copiePays = [...paysListe];
+
+        for (let i = 0; i < nbr; i++) {
+            let random = Math.floor(Math.random() * copiePays.length);
+            let paysSelectionne = copiePays[random];
+
+            let drapeau = document.createElement("img");
+            drapeau.src = paysSelectionne.drapeau;
+            drapeau.alt = paysSelectionne.nom;
+            drapeau.addEventListener("click", () => verifierReponse(paysSelectionne.nom));
+
+
+            if (i < 2) {
+                drapeauxHaut.appendChild(drapeau);
+            } else {
+                drapeauxBas.appendChild(drapeau);
+            }
+
+            paysChoisis.push(paysSelectionne);
+            copiePays.splice(random, 1);
+
+        }
+
+
+        let randomPays = Math.floor(Math.random() * paysChoisis.length);
+        nomPaysElement.textContent = paysChoisis[randomPays].nom;
+    }
+
+    function verifierReponse(nomClique) {
+        let nomCorrect = nomPaysElement.textContent;
+        if (nomClique === nomCorrect) {
+            alert("Bonne réponse !");
+            score += 10;
+            scoreResult.textContent = score;
+            recuperer()
+        } else {
+            alert("Mauvaise réponse, essaie encore !");
+            drapeaux.style.display = "none";
+            AffichageResultatScore.style.visibility = "visible"
+            ResultatScore.textContent = score;
+            nomPaysElement.style.visibility = "hidden"
+        }
+
+    }
+
+
+    recuperer(); // Charger les données au début
+</script>

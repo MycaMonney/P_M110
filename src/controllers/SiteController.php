@@ -20,7 +20,7 @@ class SiteController
         $dataLayout = ['title' => 'Home'];
         $phpView = new PhpRenderer(__DIR__ . '/../views', $dataLayout);
         $phpView->setLayout("_template.php");
-        return $phpView->render($response, 'home.php', [
+        return $phpView->render($response, 'home.html', [
             'drawHeader' => true
         ]);
     }
@@ -31,7 +31,7 @@ class SiteController
         $dataLayout = ['title' => 'Login'];
         $phpView = new PhpRenderer(__DIR__ . '/../views', $dataLayout);
         $phpView->setLayout("_template.php");
-        return $phpView->render($response, 'login.php');
+        return $phpView->render($response, 'login.html');
     }
 
     public function register(Request $request, Response $response): Response
@@ -80,6 +80,17 @@ class SiteController
         return $phpView->render($response, 'logs.php', [
             'drawHeader' => true,
             'logs' => Log::getAllLogs()
+        ]);
+    }
+
+    public function playQuiz(Request $request, Response $response): Response
+    {
+        // Construire la structure de la page
+        $dataLayout = ['title' => 'Account'];
+        $phpView = new PhpRenderer(__DIR__ . '/../views', $dataLayout);
+        $phpView->setLayout("_template.php");
+        return $phpView->render($response, 'game.html', [
+            'drawHeader' => true,
         ]);
     }
 }
