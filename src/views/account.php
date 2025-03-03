@@ -2,7 +2,7 @@
 <section style="flex-direction: column; gap: 0px;">
     <h2 style="position: relative; text-align: center;"><?= $user['username'] ?></h2>
     <div id="changerMdp">
-        <div class="group">
+        <!-- <div class="group">
             <svg stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
                 class="icon">
                 <path
@@ -10,8 +10,8 @@
                     stroke-linejoin="round" stroke-linecap="round"></path>
             </svg>
             <input class="input" type="password" placeholder="password">
-        </div>
-        <button>Modifier</button>
+        </div> -->
+        <!-- <button>Modifier</button> -->
     </div>
     <h2 style="position: relative;"><?= $user['region'] ?></h2>
     <a href="/logout">Se déconnecter</a>
