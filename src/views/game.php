@@ -92,23 +92,44 @@ for ($i = $slashCount; $i > 1; $i--) {
     scoreResult.textContent = score;
     let ResultatScore = document.getElementById("resultatScore")
     let AffichageResultatScore = document.getElementById("afficherResultat");
-    AffichageResultatScore.style.visibility = "hidden"
+    AffichageResultatScore.style.visibility = "hidden";
+
+    const CACHE_TIMEOUT = 3600000; // 1 heure en millisecondes (3600000 ms)
 
     async function recuperer() {
-        try {
-            const reponse = await fetch(URLAPI);
-            if (!reponse.ok) {
-                throw new Error("Erreur lors de la récupération des données");
-            }
-            const pays = await reponse.json();
-            paysListe = pays.map(element => ({
-                nom: element.name.common,
-                drapeau: element.flags.svg
-            }));
+        const storedData = localStorage.getItem('paysListe');
+        const lastFetchTime = localStorage.getItem('lastFetchTime');
+
+        const currentTime = new Date().getTime();
+
+        if (storedData && lastFetchTime && (currentTime - lastFetchTime) < CACHE_TIMEOUT) {
+            // Utiliser les données en cache si elles ne sont pas expirées
+            paysListe = JSON.parse(storedData);
+            console.log('Données récupérées depuis le cache');
             nbrDrapeauCalcule = Math.floor(4 + Math.log((score / 10) + 1) / Math.log(3));
             afficherDrapeauxUniques(nbrDrapeauCalcule);
-        } catch (error) {
-            console.error("Erreur :", error);
+        } else {
+            try {
+                const reponse = await fetch(URLAPI);
+                if (!reponse.ok) {
+                    throw new Error("Erreur lors de la récupération des données");
+                }
+                const pays = await reponse.json();
+                paysListe = pays.map(element => ({
+                    nom: element.name.common,
+                    drapeau: element.flags.svg
+                }));
+
+                // Stocker les données dans le localStorage avec un timestamp
+                localStorage.setItem('paysListe', JSON.stringify(paysListe));
+                localStorage.setItem('lastFetchTime', currentTime.toString());
+
+                console.log('Données récupérées depuis l\'API');
+                nbrDrapeauCalcule = Math.floor(4 + Math.log((score / 10) + 1) / Math.log(3));
+                afficherDrapeauxUniques(nbrDrapeauCalcule);
+            } catch (error) {
+                console.error("Erreur :", error);
+            }
         }
     }
 
@@ -156,11 +177,11 @@ for ($i = $slashCount; $i > 1; $i--) {
             audioSuccess.play();
             score += 10;
             scoreResult.textContent = score;
-            recuperer()
+            recuperer();
         } else {
             audioError.play();
             drapeaux.style.display = "none";
-            AffichageResultatScore.style.visibility = "visible"
+            AffichageResultatScore.style.visibility = "visible";
             ResultatScore.textContent = score;
             nomPaysElement.style.visibility = "hidden";
             btn.style.visibility = "visible";
@@ -171,5 +192,6 @@ for ($i = $slashCount; $i > 1; $i--) {
         }
         fetch(`http://flaglog/saveScore/${score}`);
     }
+
     recuperer(); // Charger les données au début
 </script>

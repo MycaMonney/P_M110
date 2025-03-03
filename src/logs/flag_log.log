@@ -21,3 +21,6 @@
 [2025-03-03T13:55:14.586865+00:00] flaglog.INFO: 3 a augmenté son score [] []
 [2025-03-03T13:56:16.516057+00:00] flaglog.INFO: 3 a augmenté son score [] []
 [2025-03-03T13:56:20.675857+00:00] flaglog.INFO: 3 a augmenté son score [] []
+[2025-03-03T14:22:20.176781+00:00] flaglog.INFO: L'utilisateur 3 s'est déconnecté. [] []
+[2025-03-03T14:28:11.745397+00:00] flaglog.INFO: L'utilisateur 4 a été créé. [] []
+[2025-03-03T14:28:31.475893+00:00] flaglog.INFO: L'utilisateur 4 s'est déconnecté. [] []
