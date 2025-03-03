@@ -36,7 +36,7 @@ class Log
 
         // Vérifier si le fichier existe, sinon le créer
         if (!file_exists(self::$logPath)) {
-            file_put_contents(self::$logPath, ""); // Crée un fichier vide
+            file_put_contents(self::$logPath, "");
         }
     }
 
@@ -65,7 +65,6 @@ class Log
     public static function getAllLogs(): array
     {
         self::ensureLogFileExists(); // S'assurer que le fichier existe avant de le lire
-
         return file(self::$logPath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
     }
 }

@@ -2,6 +2,9 @@
 
 use Controllers\Logger;
 use Controllers\SiteController;
+use Models\Log;
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
 
 // Routage du site
 session_start();
@@ -21,6 +24,11 @@ $app->get('/saveScore/{value}', [SiteController::class, 'saveScore']);
 // Se connecter
 $app->get('/login[/]', [SiteController::class, 'login']);
 $app->post('/login[/]', [Logger::class, 'login']);
+$app->get('/connectionAlert/{username}/{password}', function (Request $request, Response $response, array $args): void {
+    $username = $args['username'];
+    $password = $args['password'];
+    Log::create("Tentative désespérée de connexion [$username, $password]", 'error');
+});
 
 // S'inscrire
 $app->get('/register[/]', [SiteController::class, 'register']);
@@ -31,4 +39,3 @@ $app->get('/logout[/]', [Logger::class, 'deconnexion']);
 
 // Page admin : accès aux logs
 $app->get('/logs[/]', [SiteController::class, 'logs']);
-    

